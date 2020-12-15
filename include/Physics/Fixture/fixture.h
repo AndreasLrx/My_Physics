@@ -26,7 +26,8 @@
 */
 typedef struct pe_fixture_t {
     pe_shape_t shape;
-    float friction;
+    float static_friction;
+    float dynamic_friction;
     float density;
     float restitution;
     pe_filter_t collision_filter;

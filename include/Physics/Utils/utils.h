@@ -56,6 +56,18 @@ pe_vec2f_t pe_vec2f_operate_one(pe_vec2f_t v1, float v, char operation);
 pe_vec2i_t pe_vec2i_operate_one(pe_vec2i_t v1, int v, char operation);
 pe_vec2u_t pe_vec2u_operate_one(pe_vec2u_t v1, unsigned int v, char operation);
 
+float pe_vec2f_length_squared(pe_vec2f_t v);
+int pe_vec2i_length_squared(pe_vec2i_t v);
+unsigned int pe_vec2u_length_squared(pe_vec2u_t v);
+
+float pe_vec2f_length(pe_vec2f_t v);
+float pe_vec2i_length(pe_vec2i_t v);
+float pe_vec2u_length(pe_vec2u_t v);
+
+pe_vec2f_t *pe_vec2f_normalize(pe_vec2f_t *v);
+pe_vec2i_t *pe_vec2i_normalize(pe_vec2i_t *v);
+pe_vec2u_t *pe_vec2u_normalize(pe_vec2u_t *v);
+
 long pe_vec2i_tol(pe_vec2i_t vec);
 
 int pe_vec2i_map_cmp(size_t v1, size_t v2);

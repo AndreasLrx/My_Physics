@@ -3,3 +3,4 @@ my_physics
 include/My*
 include/my_containers*
 bin*
+*.a

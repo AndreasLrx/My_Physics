@@ -37,6 +37,7 @@ typedef struct pe_body_t {
     char body_type;
     pe_vec2f_t pos;
     pe_vec2f_t velocity;
+    pe_vec2f_t force;
     pe_aabb_t aabb;
     float linear_damping;
     float angle;
@@ -62,5 +63,8 @@ void pe_body_compute_mass(pe_body_t *body, float add_mass, char compute_all);
 void pe_body_compute_mass_inv(pe_body_t *body);
 void pe_body_update(pe_body_t *body, float dt);
 void pe_body_move(pe_body_t *body, pe_vec2f_t move);
+
+void pe_body_clear_force(pe_body_t *body);
+void pe_body_apply_force(pe_body_t *body, pe_vec2f_t force);
 
 #endif /* !PHYSICS_BODY_H */

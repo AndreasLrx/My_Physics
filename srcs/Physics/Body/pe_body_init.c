@@ -11,6 +11,7 @@ static void pe_body_init_zeros(pe_body_t *body)
 {
     body->pos = VEC2F(0, 0);
     body->velocity = VEC2F(0, 0);
+    body->force = VEC2F(0, 0);
     body->linear_damping = 1;
     body->angle = 0;
     body->angular_velocity = 0;

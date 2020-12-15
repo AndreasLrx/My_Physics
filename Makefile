@@ -10,6 +10,7 @@ SRCS_BASE := 	main.c \
 				pe_body_update.c \
 				pe_body_compute_aabb.c \
 				pe_body_compute_mass.c \
+				pe_body_force.c \
 				\
 				\
 				pe_collide_aabb.c \
@@ -62,6 +63,9 @@ SRCS_BASE := 	main.c \
 				\
 				\
 				pe_vec2_dot_product.c \
+				pe_vec2_length_squared.c \
+				pe_vec2_length.c \
+				pe_vec2_normalize.c \
 				pe_vec2_operands.c \
 				pe_vec2_operands_simple.c \
 				pe_vec2f.c \

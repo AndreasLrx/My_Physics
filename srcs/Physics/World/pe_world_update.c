@@ -17,8 +17,7 @@ void pe_world_update(pe_world_t *world, float dt)
     }
     for (size_t i = 0; i < nb_body; i++) {
         if (world->bodies[i]->body_type != STATIC) {
-            world->bodies[i]->velocity = VEC2F_ADD(world->bodies[i]->velocity, \
-            VEC2F_MUL1(world->gravity, world->bodies[i]->mass * dt_sec));
+            pe_body_apply_force(world->bodies[i], world->gravity);
             pe_body_update(world->bodies[i], dt_sec);
             pe_aabb_copy(&world->tree->nodes[world->bodies[i]->id]->box, \
             &world->bodies[i]->aabb);
