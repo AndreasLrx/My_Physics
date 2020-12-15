@@ -12,7 +12,7 @@ void pe_body_update(pe_body_t *body, float dt)
     pe_vec2f_t move_vec;
 
     body->velocity = VEC2F_MUL1(VEC2F_ADD(body->velocity, \
-    VEC2F_MUL1(body->force, dt * body->mass)), \
+    VEC2F_MUL1(body->force, dt * body->mass.mass)), \
     CLAMP(1 - (dt * body->linear_damping), 0, 1));
     move_vec = VEC2F_MUL1(body->velocity, dt);
     pe_body_move(body, move_vec);

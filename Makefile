@@ -46,6 +46,9 @@ SRCS_BASE := 	main.c \
 				pe_fixture_mass.c \
 				\
 				\
+				pe_mass_data.c \
+				\
+				\
 				pe_raycast_aabb.c \
 				pe_raycast_init.c \
 				\
@@ -127,6 +130,8 @@ $(OBJ_PATH)/%.o: ./srcs/Physics/DynamicTree/TreeNode/%.c
 $(OBJ_PATH)/%.o: ./srcs/Physics/Filter/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 $(OBJ_PATH)/%.o: ./srcs/Physics/Fixture/%.c
+	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+$(OBJ_PATH)/%.o: ./srcs/Physics/MassData/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 $(OBJ_PATH)/%.o: ./srcs/Physics/RayCast/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<

@@ -11,6 +11,7 @@
 #include <stddef.h>
 #include "../Utils/utils.h"
 #include "../Shapes/aabb_shape.h"
+#include "../MassData/mass_data.h"
 
 enum BODY_TYPE {STATIC, DYNAMIC};
 
@@ -43,7 +44,7 @@ typedef struct pe_body_t {
     float angle;
     float angular_velocity;
     float angular_damping;
-    float mass;
+    pe_mass_data_t mass;
     float inv_mass;
     size_t datas;
     char fixed_rotation;
@@ -60,7 +61,6 @@ void pe_body_destroy(pe_body_t *body);
 
 void pe_body_compute_aabb(pe_body_t *body);
 void pe_body_compute_mass(pe_body_t *body, float add_mass, char compute_all);
-void pe_body_compute_mass_inv(pe_body_t *body);
 void pe_body_update(pe_body_t *body, float dt);
 void pe_body_move(pe_body_t *body, pe_vec2f_t move);
 

@@ -29,7 +29,7 @@ int moves_init_capacity)
         return NULL;
     pe_body_init_zeros(body);
     body->body_type = body_type;
-    body->mass = (body_type == DYNAMIC);
+    pe_mass_data_init(&body->mass, 0, 0, body_type);
     body->inv_mass = (body_type == DYNAMIC);
     body->enabled = 1;
     pe_aabb_init(&body->aabb, VEC2F(0, 0), VEC2F(0, 0), 1);
