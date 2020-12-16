@@ -48,6 +48,10 @@ float pe_vec2f_dot_product(pe_vec2f_t v1, pe_vec2f_t v2);
 int pe_vec2i_dot_product(pe_vec2i_t v1, pe_vec2i_t v2);
 unsigned int pe_vec2u_dot_product(pe_vec2u_t v1, pe_vec2u_t v2);
 
+float pe_vec2f_cross_product_vec_vec(pe_vec2f_t v1, pe_vec2f_t v2);
+pe_vec2f_t pe_vec2f_cross_product_vec_scalar(pe_vec2f_t v, float scalar);
+pe_vec2f_t pe_vec2f_cross_product_scalar_vec(float scalar, pe_vec2f_t v);
+
 pe_vec2f_t pe_vec2f_operate(pe_vec2f_t v1, pe_vec2f_t v2, char operation);
 pe_vec2i_t pe_vec2i_operate(pe_vec2i_t v1, pe_vec2i_t v2, char operation);
 pe_vec2u_t pe_vec2u_operate(pe_vec2u_t v1, pe_vec2u_t v2, char operation);

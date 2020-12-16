@@ -72,6 +72,7 @@ SRCS_BASE := 	main.c \
 				pe_vec2_normalize.c \
 				pe_vec2_operands.c \
 				pe_vec2_operands_simple.c \
+				pe_vec2f_cross_product.c \
 				pe_vec2f.c \
 				pe_vec2i.c \
 				pe_vec2u.c \
