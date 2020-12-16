@@ -63,6 +63,7 @@ SRCS_BASE := 	main.c \
 				pe_init_specific_shapes.c \
 				pe_shape_update_area.c \
 				pe_shape_destroy.c \
+				pe_shape_compute_mass_center.c \
 				\
 				\
 				pe_vec2_dot_product.c \

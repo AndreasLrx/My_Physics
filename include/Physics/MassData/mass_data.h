@@ -8,7 +8,10 @@
 #ifndef PHYSICS_MASS_DATA_H
 #define PHYSICS_MASS_DATA_H
 
+#include "../Utils/utils.h"
+
 typedef struct pe_mass_data_t {
+    pe_vec2f_t center;
     float mass;
     float inv_mass;
     float inertia;
