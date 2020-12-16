@@ -66,6 +66,9 @@ SRCS_BASE := 	main.c \
 				pe_shape_compute_mass_center.c \
 				\
 				\
+				pe_mat22_init.c \
+				pe_mat22_rotate.c \
+				\
 				pe_vec2_dot_product.c \
 				pe_vec2_length_squared.c \
 				pe_vec2_length.c \
@@ -143,8 +146,11 @@ $(OBJ_PATH)/%.o: ./srcs/Physics/Shapes/%.c
 $(OBJ_PATH)/%.o: ./srcs/Physics/Shapes/AABB/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 
-$(OBJ_PATH)/%.o: ./srcs/Physics/Utils/%.c
+$(OBJ_PATH)/%.o: ./srcs/Physics/Utils/Vec2/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+$(OBJ_PATH)/%.o: ./srcs/Physics/Utils/Mat22/%.c
+	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+
 $(OBJ_PATH)/%.o: ./srcs/Physics/World/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 
