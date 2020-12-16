@@ -29,6 +29,7 @@ typedef union pe_shape_u{
 **    - position (in meter) relative to top left of body
 */
 typedef struct pe_shape_t {
+    pe_mat22_t mat_rot;
     pe_shape_u shape;
     pe_vec2f_t pos;
     int shape_type;

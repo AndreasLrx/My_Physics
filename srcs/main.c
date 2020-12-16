@@ -19,6 +19,26 @@ struct body_rect_t *init_rect_from_body(pe_body_t *body);
 void pe_debug_draw_body(struct body_rect_t **rects, \
 sfRenderWindow *window, int nb_bodys);
 struct body_rect_t *init_circle_from_body(pe_body_t *body);
+struct body_rect_t *init_poly_from_body(pe_body_t *body);
+
+struct body_rect_t *create_polygon(pe_world_t *world, pe_vec2f_t pos)
+{
+    pe_body_t *polygon = pe_body_init(DYNAMIC, 1, 0);
+    pe_fixture_t *polygon_fixture = pe_fixture_init();
+
+    polygon->pos = pos;
+    pe_vec2f_t *vertices = malloc(sizeof(pe_vec2f_t) * 6);
+    vertices[0] = VEC2F(0, -0.75);
+    vertices[1] = VEC2F(0.5, -0.25);
+    vertices[2] = VEC2F(0.5, 0.25);
+    vertices[3] = VEC2F(0, 0.75);
+    vertices[4] = VEC2F(-0.5, 0.25);
+    vertices[5] = VEC2F(-0.5, -0.25);
+    pe_shape_init_polygon(&polygon_fixture->shape, VEC2F(0, 0), vertices, 6);
+    pe_body_add_fixture(polygon, polygon_fixture);
+    pe_world_add_body(world, polygon);
+    return init_poly_from_body(polygon);
+}
 
 struct body_rect_t *create_ground(pe_world_t *world)
 {
@@ -88,6 +108,13 @@ int main(int argc, char **argv)
                 (size_t)create_box(world, \
                 VEC2F(sfMouse_getPositionRenderWindow(window).x / 32.f, \
                 sfMouse_getPositionRenderWindow(window).y / 32.f), 1));
+            }
+            if (sfEvtKeyReleased == event.type && \
+            event.key.code == sfKeyP) {
+                my_vector_push((size_t **)&mouse_boxes, \
+                (size_t)create_polygon(world, \
+                VEC2F(sfMouse_getPositionRenderWindow(window).x / 32.f, \
+                sfMouse_getPositionRenderWindow(window).y / 32.f)));
             }
         }
         while (accumulator >= MS_PER_UPDATE) {

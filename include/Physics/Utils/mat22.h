@@ -34,6 +34,8 @@ void pe_mat22_rotate(pe_mat22_t *mat, float rad_angle);
 void pe_mat22_rotate_point(pe_mat22_t *mat, pe_vec2f_t *point);
 pe_vec2f_t pe_mat22_get_rotated_point(pe_mat22_t *mat, pe_vec2f_t point);
 
+pe_mat22_t *pe_mat22_transpose(pe_mat22_t *src, pe_mat22_t *dest);
+
 void pe_mat22_display(pe_mat22_t *mat);
-void pe_mat22_display(pe_mat22_t *mat);
+
 #endif /* !PHYSICS_MATRIX_22_h */

@@ -29,4 +29,8 @@ char pe_manifold_fill_aabb_circle(pe_manifold_t *m);
 char pe_manifold_fill_circle_aabb(pe_manifold_t *m);
 char pe_manifold_fill_circle_circle(pe_manifold_t *m);
 
+char pe_manifold_fill_polygon_polygon(pe_manifold_t *m);
+char pe_manifold_fill_circle_polygon(pe_manifold_t *m);
+char pe_manifold_fill_polygone_circle(pe_manifold_t *m);
+
 #endif /* !PHYSICS_MANIFOLD_H */

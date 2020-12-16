@@ -20,8 +20,11 @@ struct pe_shape_t;
 typedef struct pe_polygon_shape_t {
     int count;
     pe_vec2f_t *vertices;
+    pe_vec2f_t *normals;
 } pe_polygon_shape_t;
 
+void pe_shape_init_polygon(struct pe_shape_t *shape, pe_vec2f_t pos, \
+pe_vec2f_t *vertices, int nb_vertices);
 void pe_shape_init_rect(struct pe_shape_t *shape, \
 pe_vec2f_t pos, pe_vec2f_t size);
 

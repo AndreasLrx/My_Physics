@@ -9,11 +9,13 @@
 #include "Physics/physics.h"
 
 #define M_TO_PX 32
+#define REAL_POLY 3
 
 typedef struct body_rect_t {
     pe_body_t *body;
     sfRectangleShape *shape;
     sfCircleShape *circle_shape;
+    sfConvexShape *polygon;
     char type;
 } body_rect_t;
 
@@ -50,6 +52,24 @@ body_rect_t *init_circle_from_body(pe_body_t *body)
     return circle;
 }
 
+body_rect_t *init_poly_from_body(pe_body_t *body)
+{
+    body_rect_t *poly = malloc(sizeof(body_rect_t));
+    pe_vec2f_t v;
+
+    poly->body = body;
+    poly->polygon = sfConvexShape_create();
+    sfConvexShape_setPointCount(poly->polygon, body->fixtures[0]->shape.shape.polygon.count);
+    for (int i = 0; i < body->fixtures[0]->shape.shape.polygon.count; i++) {
+        v = body->fixtures[0]->shape.shape.polygon.vertices[i];
+        sfConvexShape_setPoint(poly->polygon, i, (sfVector2f){v.x * M_TO_PX, v.y * M_TO_PX});
+    }
+    sfConvexShape_setOutlineColor(poly->polygon, sfRed);
+    sfConvexShape_setOutlineThickness(poly->polygon, -3);
+    poly->type = REAL_POLY;
+    return poly;
+}
+
 void pe_debug_draw_body(body_rect_t **rects, \
 sfRenderWindow *window, int nb_bodys)
 {
@@ -62,6 +82,12 @@ sfRenderWindow *window, int nb_bodys)
                 (rects[i]->body->pos.y - \
                 rects[i]->body->aabb.size.y / 2.f) * M_TO_PX});
             sfRenderWindow_drawRectangleShape(window, rects[i]->shape, NULL);
+            break;
+        case REAL_POLY:
+            sfConvexShape_setPosition(rects[i]->polygon, \
+            (sfVector2f){rects[i]->body->pos.x * M_TO_PX, \
+                rects[i]->body->pos.y * M_TO_PX});
+            sfRenderWindow_drawConvexShape(window, rects[i]->polygon, NULL);
             break;
         case CIRCLE:
             sfCircleShape_setPosition(rects[i]->circle_shape, \

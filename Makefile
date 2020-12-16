@@ -16,7 +16,9 @@ SRCS_BASE := 	main.c \
 				pe_collide_aabb_aabb.c \
 				pe_collide_aabb_circle.c \
 				pe_collide_circle_circle.c \
+				pe_collide_polygon_polygon.c \
 				pe_collide_get_collide_aabb_id.c \
+				pe_collide_polygone_circle.c \
 				pe_collide_bodies.c \
 				pe_collide_body_from_parent.c \
 				pe_positionnal_correction.c \
@@ -74,12 +76,14 @@ SRCS_BASE := 	main.c \
 				\
 				pe_mat22_init.c \
 				pe_mat22_rotate.c \
+				pe_mat22_transpose.c \
 				\
 				pe_vec2_dot_product.c \
 				pe_vec2_length_squared.c \
 				pe_vec2_length.c \
 				pe_vec2_normalize.c \
 				pe_vec2_operands.c \
+				pe_vec2_opposite.c \
 				pe_vec2_operands_simple.c \
 				pe_vec2f_cross_product.c \
 				pe_vec2f.c \
