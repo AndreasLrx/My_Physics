@@ -14,15 +14,6 @@
 
 struct pe_body_t;
 
-typedef struct pe_manifold_t {
-    int fa;
-    int fb;
-    pe_body_t *a;
-    pe_body_t *b;
-    pe_vec2f_t normal;
-    float penetration;
-} pe_manifold_t;
-
 typedef struct pe_world_t {
     pe_vec2f_t gravity;
     struct pe_body_t **bodies;

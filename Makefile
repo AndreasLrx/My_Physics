@@ -13,13 +13,15 @@ SRCS_BASE := 	main.c \
 				pe_body_force.c \
 				\
 				\
-				pe_collide_aabb.c \
-				pe_collide_circle.c \
+				pe_collide_aabb_aabb.c \
+				pe_collide_aabb_circle.c \
+				pe_collide_circle_circle.c \
 				pe_collide_get_collide_aabb_id.c \
 				pe_collide_bodies.c \
 				pe_collide_body_from_parent.c \
 				pe_positionnal_correction.c \
 				pe_resolve_collision.c \
+				pe_manifold.c \
 				\
 				\
 				pe_constants.c \
@@ -44,6 +46,10 @@ SRCS_BASE := 	main.c \
 				pe_fixture_destroy.c \
 				pe_fixture_init.c \
 				pe_fixture_mass.c \
+				\
+				\
+				pe_collision_table.c \
+				pe_shape_area_table.c \
 				\
 				\
 				pe_mass_data.c \
@@ -135,6 +141,8 @@ $(OBJ_PATH)/%.o: ./srcs/Physics/DynamicTree/TreeNode/%.c
 $(OBJ_PATH)/%.o: ./srcs/Physics/Filter/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 $(OBJ_PATH)/%.o: ./srcs/Physics/Fixture/%.c
+	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+$(OBJ_PATH)/%.o: ./srcs/Physics/JumpTables/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 $(OBJ_PATH)/%.o: ./srcs/Physics/MassData/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<

@@ -7,12 +7,12 @@
 
 #include "Physics/physics.h"
 
-static void circle_area_calc(pe_shape_t *shape)
+float pe_shape_area_circle(pe_shape_t *shape)
 {
-    shape->area = PE_PI * powf(shape->shape.circle.radius, 2);
+    return PE_PI * powf(shape->shape.circle.radius, 2);
 }
 
-static void polygon_area_calc(pe_shape_t *shape)
+float pe_shape_area_polygon(pe_shape_t *shape)
 {
     pe_vec2f_t min = shape->shape.polygon.vertices[0];
     pe_vec2f_t max = shape->shape.polygon.vertices[0];
@@ -27,20 +27,11 @@ static void polygon_area_calc(pe_shape_t *shape)
         if (max.y < shape->shape.polygon.vertices[i].y)
             max.y = shape->shape.polygon.vertices[i].y;
     }
-    shape->area = (max.x - min.x) * (max.y - min.y);
+    return (max.x - min.x) * (max.y - min.y);
 }
 
 float pe_shape_calc_area(pe_shape_t *shape)
 {
-    switch (shape->shape_type) {
-    case CIRCLE:
-        circle_area_calc(shape);
-        break;
-    case POLYGON:
-        polygon_area_calc(shape);
-        break;
-    default:
-        break;
-    }
+    shape->area = pe_shape_area_table[shape->shape_type](shape);
     return shape->area;
 }

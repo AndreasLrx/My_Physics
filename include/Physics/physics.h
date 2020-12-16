@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../my_containers/my_containers.h"
+#include "./JumpTable/jump_tables.h"
 #include "./MassData/mass_data.h"
 #include "./Body/body.h"
 #include "./Filter/filter.h"

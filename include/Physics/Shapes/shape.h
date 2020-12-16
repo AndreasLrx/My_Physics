@@ -31,7 +31,7 @@ typedef union pe_shape_u{
 typedef struct pe_shape_t {
     pe_shape_u shape;
     pe_vec2f_t pos;
-    char shape_type;
+    int shape_type;
     float area;
     pe_vec2f_t mass_center;
 } pe_shape_t;
@@ -40,5 +40,8 @@ void pe_shape_init_default(pe_shape_t *shape);
 float pe_shape_calc_area(pe_shape_t *shape);
 pe_vec2f_t *pe_shape_compute_mass_center(pe_shape_t *shape);
 void pe_shape_destroy(pe_shape_t *shape);
+
+float pe_shape_area_circle(pe_shape_t *shape);
+float pe_shape_area_polygon(pe_shape_t *shape);
 
 #endif /* !PHYSICS_SHAPE_H */

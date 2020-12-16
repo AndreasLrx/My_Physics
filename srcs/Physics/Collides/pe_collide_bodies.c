@@ -15,37 +15,10 @@ static void resolve_manifold(pe_manifold_t *m, int collided)
     pe_position_correction(m);
 }
 
-static void pe_manifold_swap_bodies(pe_manifold_t *m)
-{
-    pe_body_t *tempo_b = m->a;
-    int tempo_f = m->fa;
-
-    m->a = m->b;
-    m->fa = m->fb;
-    m->b = tempo_b;
-    m->fb = tempo_f;
-}
-
 static int pe_fill_manifold(pe_manifold_t *m)
 {
-    if (m->a->fixtures[m->fa]->shape.shape_type == POLYGON && \
-    m->b->fixtures[m->fb]->shape.shape_type == POLYGON) {
-        return pe_fill_aabb_aabb_manifold(m);
-    }
-    if (m->a->fixtures[m->fa]->shape.shape_type == CIRCLE && \
-    m->b->fixtures[m->fb]->shape.shape_type == CIRCLE) {
-        return pe_fill_circle_circle_manifold(m);
-    }
-    if (m->a->fixtures[m->fa]->shape.shape_type == POLYGON && \
-    m->b->fixtures[m->fb]->shape.shape_type == CIRCLE) {
-        return pe_fill_aabb_circle_manifold(m);
-    }
-    if (m->a->fixtures[m->fa]->shape.shape_type == CIRCLE && \
-    m->b->fixtures[m->fb]->shape.shape_type == POLYGON) {
-        pe_manifold_swap_bodies(m);
-        return pe_fill_aabb_circle_manifold(m);
-    }
-    return 0;
+    return pe_collide_table[m->a->fixtures[m->fa]->shape.shape_type]\
+        [m->b->fixtures[m->fb]->shape.shape_type](m);
 }
 
 void pe_collide_bodies(pe_body_t *b1, pe_body_t *b2, pe_manifold_t *m)

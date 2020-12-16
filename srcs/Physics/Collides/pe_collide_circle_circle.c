@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2020
 ** My runner
 ** File description:
-** Physics - circle collisions
+** Physics - collide fcts btwn circles
 */
 
 #include "Physics/physics.h"
 
-char pe_collide_circles(pe_shape_t *c1, pe_shape_t *c2)
+char pe_collide_circle_circle(pe_shape_t *c1, pe_shape_t *c2)
 {
     float squared_min_dist = c1->shape.circle.radius + c2->shape.circle.radius;
     float square_dist = powf(c1->pos.x +c2->pos.x, 2) + \
@@ -17,7 +17,7 @@ char pe_collide_circles(pe_shape_t *c1, pe_shape_t *c2)
     return squared_min_dist < square_dist;
 }
 
-char pe_fill_circle_circle_manifold(pe_manifold_t *m)
+char pe_manifold_fill_circle_circle(pe_manifold_t *m)
 {
     pe_vec2f_t n = VEC2F_SUB(m->b->pos, m->a->pos);
     float r = m->a->fixtures[m->fa]->shape.shape.circle.radius + \
