@@ -2,7 +2,11 @@ TARGET := my_physics
 
 OBJ_PATH := bin
 SRCS_BASE := 	main.c \
-				debug_draw.c \
+				\
+				\
+				draw_body.c \
+				init_body.c \
+				update_body.c \
 				\
 				\
 				pe_body_init.c \
@@ -11,6 +15,7 @@ SRCS_BASE := 	main.c \
 				pe_body_compute_aabb.c \
 				pe_body_compute_mass.c \
 				pe_body_force.c \
+				pe_body_set_angle.c \
 				\
 				\
 				pe_collide_aabb_aabb.c \
@@ -72,6 +77,7 @@ SRCS_BASE := 	main.c \
 				pe_shape_update_area.c \
 				pe_shape_destroy.c \
 				pe_shape_compute_mass_center.c \
+				pe_shape_compute_inertia.c \
 				\
 				\
 				pe_mat22_init.c \
@@ -128,6 +134,8 @@ make_libs:
 	$(MAKE_CONTAINERS)
 
 $(OBJ_PATH)/%.o: ./srcs/%.c
+	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
+$(OBJ_PATH)/%.o: ./srcs/DebugDraw/%.c
 	$(CC) $(CFLAGS) -c $(CFLAGS_INCLUDE) -o $@ $<
 
 $(OBJ_PATH)/%.o: ./srcs/Physics/Body/%.c

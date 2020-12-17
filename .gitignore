@@ -4,3 +4,4 @@ include/My*
 include/my_containers*
 bin*
 *.a
+.vscode*

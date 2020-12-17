@@ -36,16 +36,14 @@ pe_fixture_t *a, pe_fixture_t *b)
     int bestIndex;
     pe_vec2f_t normal;
     pe_vec2f_t support;
-    pe_vec2f_t normal_world;
     pe_vec2f_t vertex_world;
     pe_mat22_t mat;
     float penetration_dist;
 
+    pe_mat22_transpose(&b->shape.mat_rot, &mat);
     for (int i = 0; i < poly_a->count; ++i) {
-        normal = poly_a->normals[i];
-        normal_world = pe_mat22_get_rotated_point(&a->shape.mat_rot, normal);
-        pe_mat22_transpose(&b->shape.mat_rot, &mat);
-        normal = pe_mat22_get_rotated_point(&mat, normal_world);
+        normal = pe_mat22_get_rotated_point(&mat, \
+        pe_mat22_get_rotated_point(&a->shape.mat_rot, poly_a->normals[i]));
         support = get_support_point(pe_vec2f_opposite(normal), \
         poly_b->vertices, poly_b->count);
         vertex_world = VEC2F_SUB(VEC2F_ADD(SHAPE_POS(a), \
@@ -148,19 +146,19 @@ static void handle_collide(pe_manifold_t *m, int ref_id, int flip)
     cp = 0;
     separation = pe_vec2f_dot_product(ref_face_normal, inc_face[0]) - ref_c;
     if (separation <= 0.0f) {
-        //m->contacts[cp] = incidentFace[0];
+        m->contacts[cp] = inc_face[0];
         m->penetration = -separation;
         cp++;
     } else
         m->penetration = 0;
     separation = pe_vec2f_dot_product(ref_face_normal, inc_face[1]) - ref_c;
     if (separation <= 0.0f) {
-        //m->contacts[cp] = incidentFace[1];
+        m->contacts[cp] = inc_face[1];
         m->penetration += -separation;
         cp++;
         m->penetration /= (float)cp;
     }
-    //m->contact_count = cp;
+    m->nb_contacts = cp;
 }
 
 char pe_manifold_fill_polygon_polygon(pe_manifold_t *m)

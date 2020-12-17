@@ -11,7 +11,7 @@ static void resolve_manifold(pe_manifold_t *m, int collided)
 {
     if (!collided)
         return;
-    pe_resolve_collision(m);
+    pe_resolve_collision_rotate(m);
     pe_position_correction(m);
 }
 

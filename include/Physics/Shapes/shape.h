@@ -32,8 +32,10 @@ typedef struct pe_shape_t {
     pe_mat22_t mat_rot;
     pe_shape_u shape;
     pe_vec2f_t pos;
+    pe_vec2f_t *body_pos;
     int shape_type;
     float area;
+    float inertia;
     pe_vec2f_t mass_center;
 } pe_shape_t;
 
@@ -44,5 +46,7 @@ void pe_shape_destroy(pe_shape_t *shape);
 
 float pe_shape_area_circle(pe_shape_t *shape);
 float pe_shape_area_polygon(pe_shape_t *shape);
+
+float pe_shape_compute_inertia(pe_shape_t *shape, float fixture_mass);
 
 #endif /* !PHYSICS_SHAPE_H */

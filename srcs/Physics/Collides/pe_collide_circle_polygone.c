@@ -38,7 +38,7 @@ pe_vec2f_t center, float *max_sep)
         }
     }
     face_vertices[0] = poly->vertices[normal_face];
-    face_vertices[1] = poly->vertices[(normal_face + 1 <= poly->count) ? \
+    face_vertices[1] = poly->vertices[(normal_face + 1 < poly->count) ? \
 normal_face + 1 : 0];
     if (*max_sep < PE_EPSILON)
         circle_in_poly(m, poly, normal_face);

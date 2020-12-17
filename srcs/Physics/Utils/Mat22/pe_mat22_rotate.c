@@ -25,10 +25,13 @@ void pe_mat22_rotate(pe_mat22_t *mat, float rad_angle)
 
 void pe_mat22_rotate_point(pe_mat22_t *mat, pe_vec2f_t *point)
 {
+    float x_back;
+
     if (mat == NULL)
         return;
+    x_back = point->x;
     point->x = mat->p00 * point->x + mat->p01 * point->y;
-    point->y = mat->p10 * point->x + mat->p11 * point->y;
+    point->y = mat->p10 * x_back + mat->p11 * point->y;
 }
 
 pe_vec2f_t pe_mat22_get_rotated_point(pe_mat22_t *mat, pe_vec2f_t point)

@@ -12,6 +12,7 @@ float init_inertia, char static_body)
 {
     mass->mass = init_mass;
     mass->inertia = init_inertia;
+    mass->center = VEC2F(0, 0);
     pe_mass_data_update(mass, static_body);
 }
 

@@ -23,8 +23,8 @@ pe_mat22_t *pe_mat22_init_from_angle(pe_mat22_t *matrix, float rad_angle)
     if (mat == NULL)
         mat = pe_mat22_init();
     mat->p00 = cos_angle;
-    mat->p10 = -sin_angle;
-    mat->p01 = sin_angle;
+    mat->p10 = sin_angle;
+    mat->p01 = -sin_angle;
     mat->p11 = cos_angle;
     return mat;
 }

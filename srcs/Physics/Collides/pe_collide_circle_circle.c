@@ -27,14 +27,17 @@ char pe_manifold_fill_circle_circle(pe_manifold_t *m)
     if (d > r * r)
         return 0;
     d = sqrt(d);
+    m->nb_contacts = 1;
     if (d != 0) {
         m->penetration = r - d;
         m->normal = VEC2F_MUL1(n, 1 / d);
-        return 1;
+        m->contacts[0] = VEC2F_ADD(VEC2F_MUL1(n, \
+        m->af->shape.shape.circle.radius), SHAPE_POS(m->af));
     } else {
         m->penetration = MAX(m->af->shape.shape.circle.radius, \
         m->bf->shape.shape.circle.radius);
         m->normal = VEC2F(1, 0);
-        return 1;
+        m->contacts[0] = SHAPE_POS(m->af);
     }
+    return 1;
 }
