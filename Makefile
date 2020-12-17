@@ -14,11 +14,11 @@ SRCS_BASE := 	main.c \
 				\
 				\
 				pe_collide_aabb_aabb.c \
-				pe_collide_aabb_circle.c \
 				pe_collide_circle_circle.c \
 				pe_collide_polygon_polygon.c \
 				pe_collide_get_collide_aabb_id.c \
 				pe_collide_polygone_circle.c \
+				pe_collide_circle_polygone.c \
 				pe_collide_bodies.c \
 				pe_collide_body_from_parent.c \
 				pe_positionnal_correction.c \

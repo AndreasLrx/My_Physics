@@ -14,6 +14,7 @@
 #define SIGN(a) (((a) >= 0) ? 1 : -1)
 #define TO_RAD(a) ((a) * (PE_PI / 180.f))
 #define TO_DEG(a) ((a) * (180 / PE_PI))
+#define SHAPE_POS(fix) (VEC2F_ADD(fix->body->pos, fix->shape.pos))
 
 extern const double PE_PI;
 extern const float PE_POS_CORRECT_RATIO;

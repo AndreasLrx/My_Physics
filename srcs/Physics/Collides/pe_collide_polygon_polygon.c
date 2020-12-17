@@ -48,9 +48,9 @@ pe_fixture_t *a, pe_fixture_t *b)
         normal = pe_mat22_get_rotated_point(&mat, normal_world);
         support = get_support_point(pe_vec2f_opposite(normal), \
         poly_b->vertices, poly_b->count);
-        vertex_world = VEC2F_SUB(VEC2F_ADD(a->body->pos, \
+        vertex_world = VEC2F_SUB(VEC2F_ADD(SHAPE_POS(a), \
         pe_mat22_get_rotated_point(&a->shape.mat_rot, \
-        poly_a->vertices[i])), b->body->pos);
+        poly_a->vertices[i])), SHAPE_POS(b));
         pe_mat22_rotate_point(&mat, &vertex_world);
         penetration_dist = pe_vec2f_dot_product(normal, \
         VEC2F_SUB(support, vertex_world));
@@ -85,12 +85,12 @@ pe_fixture_t *ref, pe_fixture_t *inc, int ref_id)
     }
     face_vertices[0] = VEC2F_ADD(pe_mat22_get_rotated_point(\
     &inc->shape.mat_rot, inc->shape.shape.polygon.vertices[inc_face]), \
-    inc->body->pos);
+    SHAPE_POS(inc));
     inc_face = \
     ((inc_face + 1) >= inc->shape.shape.polygon.count) ? 0 : inc_face + 1;
     face_vertices[1] = VEC2F_ADD(pe_mat22_get_rotated_point(\
     &inc->shape.mat_rot, inc->shape.shape.polygon.vertices[inc_face]), \
-    inc->body->pos);
+    SHAPE_POS(inc));
 }
 
 static int clip_face(pe_vec2f_t normal, float c, pe_vec2f_t *face)
@@ -117,7 +117,7 @@ static int clip_face(pe_vec2f_t normal, float c, pe_vec2f_t *face)
 
 static void handle_collide(pe_manifold_t *m, int ref_id, int flip)
 {
-    pe_shape_t *poly_a = &m->a->fixtures[m->fa]->shape;
+    pe_shape_t *poly_a = &m->af->shape;
     pe_vec2f_t inc_face[2];
     pe_vec2f_t ref_face[2];
     pe_vec2f_t side_plane_normal;
@@ -128,13 +128,12 @@ static void handle_collide(pe_manifold_t *m, int ref_id, int flip)
     int cp;
     float separation;
 
-    find_incident_angle(inc_face, m->a->fixtures[m->fa], \
-    m->b->fixtures[m->fb], ref_id);
+    find_incident_angle(inc_face, m->af, m->bf, ref_id);
     ref_face[0] = VEC2F_ADD(pe_mat22_get_rotated_point(&poly_a->mat_rot, \
-    poly_a->shape.polygon.vertices[ref_id]), m->a->pos);
+    poly_a->shape.polygon.vertices[ref_id]), SHAPE_POS(m->af));
     ref_id = (ref_id + 1 >= poly_a->shape.polygon.count) ? 0 : ref_id + 1;
     ref_face[1] = VEC2F_ADD(pe_mat22_get_rotated_point(&poly_a->mat_rot, \
-    poly_a->shape.polygon.vertices[ref_id]), m->a->pos);
+    poly_a->shape.polygon.vertices[ref_id]), SHAPE_POS(m->af));
     side_plane_normal = VEC2F_SUB(ref_face[1], ref_face[0]);
     pe_vec2f_normalize(&side_plane_normal);
     ref_face_normal = VEC2F(side_plane_normal.y, - side_plane_normal.x);
@@ -166,15 +165,13 @@ static void handle_collide(pe_manifold_t *m, int ref_id, int flip)
 
 char pe_manifold_fill_polygon_polygon(pe_manifold_t *m)
 {
-    pe_fixture_t *fix_a = m->a->fixtures[m->fa];
-    pe_fixture_t *fix_b = m->b->fixtures[m->fb];
     int faces[2];
     float penetrations[2] = {find_axis_least_penetration(&faces[0], \
-        fix_a, fix_b), 0};
+        m->af, m->bf), 0};
 
     if (penetrations[0] >= 0)
         return 0;
-    penetrations[1] = find_axis_least_penetration(&faces[1], fix_b, fix_a);
+    penetrations[1] = find_axis_least_penetration(&faces[1], m->bf, m->af);
     if (penetrations[1] >= 0)
         return 0;
     if (penetrations[0] >= penetrations[1]) {

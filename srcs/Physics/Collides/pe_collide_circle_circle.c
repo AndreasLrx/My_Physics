@@ -19,21 +19,21 @@ char pe_collide_circle_circle(pe_shape_t *c1, pe_shape_t *c2)
 
 char pe_manifold_fill_circle_circle(pe_manifold_t *m)
 {
-    pe_vec2f_t n = VEC2F_SUB(m->b->pos, m->a->pos);
-    float r = m->a->fixtures[m->fa]->shape.shape.circle.radius + \
-    m->b->fixtures[m->fb]->shape.shape.circle.radius;
-    float d = n.x * n.x + n.y * n.y;
+    pe_vec2f_t n = VEC2F_SUB(SHAPE_POS(m->bf), SHAPE_POS(m->af));
+    float r = m->af->shape.shape.circle.radius + \
+    m->bf->shape.shape.circle.radius;
+    float d = pe_vec2f_length_squared(n);
 
     if (d > r * r)
         return 0;
     d = sqrt(d);
     if (d != 0) {
         m->penetration = r - d;
-        m->normal = VEC2F(n.x / d, n.y / d);
+        m->normal = VEC2F_MUL1(n, 1 / d);
         return 1;
     } else {
-        m->penetration = MAX(m->a->fixtures[m->fa]->shape.shape.circle.radius, \
-        m->b->fixtures[m->fb]->shape.shape.circle.radius);
+        m->penetration = MAX(m->af->shape.shape.circle.radius, \
+        m->bf->shape.shape.circle.radius);
         m->normal = VEC2F(1, 0);
         return 1;
     }

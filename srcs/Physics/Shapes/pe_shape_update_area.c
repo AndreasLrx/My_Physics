@@ -14,20 +14,18 @@ float pe_shape_area_circle(pe_shape_t *shape)
 
 float pe_shape_area_polygon(pe_shape_t *shape)
 {
-    pe_vec2f_t min = shape->shape.polygon.vertices[0];
-    pe_vec2f_t max = shape->shape.polygon.vertices[0];
+    float area = 0;
+    int j = shape->shape.polygon.count - 1;
+    pe_vec2f_t v1;
+    pe_vec2f_t v2;
 
     for (int i = 0; i < shape->shape.polygon.count; i++) {
-        if (min.x > shape->shape.polygon.vertices[i].x)
-            min.x = shape->shape.polygon.vertices[i].x;
-        if (max.x < shape->shape.polygon.vertices[i].x)
-            max.x = shape->shape.polygon.vertices[i].x;
-        if (min.y > shape->shape.polygon.vertices[i].y)
-            min.y = shape->shape.polygon.vertices[i].y;
-        if (max.y < shape->shape.polygon.vertices[i].y)
-            max.y = shape->shape.polygon.vertices[i].y;
+        v1 = shape->shape.polygon.vertices[j];
+        v2 = shape->shape.polygon.vertices[i];
+        area += (v1.x + v2.x) * (v1.y - v2.y);
+        j = i;
     }
-    return (max.x - min.x) * (max.y - min.y);
+    return fabsf(area / 2.0);
 }
 
 float pe_shape_calc_area(pe_shape_t *shape)

@@ -15,41 +15,39 @@ pe_vec2f_t relative_velocity)
     pe_vec2f_t tangent = VEC2F_SUB(relative_velocity, \
     VEC2F_MUL1(m->normal, normal_vel));
     float jt;
-    float mu = (m->a->fixtures[m->fa]->static_friction + \
-    m->b->fixtures[m->fb]->static_friction) * 0.7;
+    float mu = (m->af->static_friction + m->bf->static_friction) * 0.7;
 
     pe_vec2f_normalize(&tangent);
     jt = -pe_vec2f_dot_product(relative_velocity, tangent);
-    jt /= m->a->inv_mass + m->b->inv_mass;
+    jt /= m->af->body->mass.inv_mass + m->bf->body->mass.inv_mass;
     if (fabsf(jt) < j * mu)
         impulse = VEC2F_MUL1(tangent, jt);
     else
         impulse = VEC2F_MUL1(tangent, - j * \
-        (m->a->fixtures[m->fa]->dynamic_friction + \
-        m->b->fixtures[m->fb]->dynamic_friction) * 0.7);
-    m->a->velocity = VEC2F_SUB(m->a->velocity, \
-    VEC2F_MUL1(impulse, m->a->inv_mass));
-    m->b->velocity = VEC2F_ADD(m->b->velocity, \
-    VEC2F_MUL1(impulse, m->b->inv_mass));
+        (m->af->dynamic_friction + \
+        m->bf->dynamic_friction) * 0.7);
+    m->af->body->velocity = VEC2F_SUB(m->af->body->velocity, \
+    VEC2F_MUL1(impulse, m->af->body->mass.inv_mass));
+    m->bf->body->velocity = VEC2F_ADD(m->bf->body->velocity, \
+    VEC2F_MUL1(impulse, m->bf->body->mass.inv_mass));
 }
 
 void pe_resolve_collision(pe_manifold_t *m)
 {
-    pe_vec2f_t relative_velocity = {m->b->velocity.x - \
-        m->a->velocity.x, m->b->velocity.y - m->a->velocity.y};
+    pe_vec2f_t relative_velocity = VEC2F_SUB(m->bf->body->velocity, \
+    m->af->body->velocity);
     float normal_vel = pe_vec2f_dot_product(relative_velocity, m->normal);
     float e;
     float j;
 
     if (normal_vel > 0)
         return;
-    e = MIN(m->a->fixtures[m->fa]->restitution, \
-    m->b->fixtures[m->fb]->restitution);
+    e = MIN(m->af->restitution, m->bf->restitution);
     j = - (1 + e) * normal_vel;
-    j /= m->a->inv_mass + m->b->inv_mass;
-    m->a->velocity.x -= (j * m->normal.x) * m->a->inv_mass;
-    m->a->velocity.y -= (j * m->normal.y) * m->a->inv_mass;
-    m->b->velocity.x += (j * m->normal.x) * m->b->inv_mass;
-    m->b->velocity.y += (j * m->normal.y) * m->b->inv_mass;
+    j /= m->af->body->mass.inv_mass + m->bf->body->mass.inv_mass;
+    m->af->body->velocity = VEC2F_SUB(m->af->body->velocity, \
+    VEC2F_MUL1(m->normal, j * m->af->body->mass.inv_mass));
+    m->bf->body->velocity = VEC2F_ADD(m->bf->body->velocity, \
+    VEC2F_MUL1(m->normal, j * m->bf->body->mass.inv_mass));
     apply_friction(m, j, relative_velocity);
 }
