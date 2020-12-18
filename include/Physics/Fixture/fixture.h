@@ -39,6 +39,6 @@ typedef struct pe_fixture_t {
 pe_fixture_t *pe_fixture_init(void);
 void pe_fixture_destroy(pe_fixture_t *fixture);
 
-float pe_fixture_update_mass(pe_fixture_t *fixture);
+float pe_fixture_update_mass_datas(pe_fixture_t *fixture);
 
 #endif /* !PHYSICS_FIXTURE_H */

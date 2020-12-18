@@ -23,6 +23,7 @@ pe_aabb_t *box, pe_body_t *body)
     node->child2_id = -1;
     node->parent_id = -1;
     node->is_leaf = 1;
+    node->tested = 0;
     node->id = tree->id_lefts[tree->nb_nodes_set];
     node->body = body;
     tree->nb_nodes_set++;

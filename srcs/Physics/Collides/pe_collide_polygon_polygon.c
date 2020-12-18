@@ -125,13 +125,14 @@ static void handle_collide(pe_manifold_t *m, int ref_id, int flip)
     float pos_side;
     int cp;
     float separation;
+    int ref = ref_id;
 
-    find_incident_angle(inc_face, m->af, m->bf, ref_id);
+    find_incident_angle(inc_face, m->af, m->bf, ref);
     ref_face[0] = VEC2F_ADD(pe_mat22_get_rotated_point(&poly_a->mat_rot, \
-    poly_a->shape.polygon.vertices[ref_id]), SHAPE_POS(m->af));
-    ref_id = (ref_id + 1 >= poly_a->shape.polygon.count) ? 0 : ref_id + 1;
+    poly_a->shape.polygon.vertices[ref]), SHAPE_POS(m->af));
+    ref = (ref + 1 >= poly_a->shape.polygon.count) ? 0 : ref + 1;
     ref_face[1] = VEC2F_ADD(pe_mat22_get_rotated_point(&poly_a->mat_rot, \
-    poly_a->shape.polygon.vertices[ref_id]), SHAPE_POS(m->af));
+    poly_a->shape.polygon.vertices[ref]), SHAPE_POS(m->af));
     side_plane_normal = VEC2F_SUB(ref_face[1], ref_face[0]);
     pe_vec2f_normalize(&side_plane_normal);
     ref_face_normal = VEC2F(side_plane_normal.y, - side_plane_normal.x);

@@ -65,7 +65,6 @@ void pe_resolve_collision_rotate(pe_manifold_t *m)
     float inv_mass_sum;
     float j;
     float jt;
-    float e = MIN(m->af->restitution, m->bf->restitution);
     pe_vec2f_t impulse;
     pe_vec2f_t t;
     pe_vec2f_t tangent_impulse;
@@ -81,15 +80,15 @@ void pe_resolve_collision_rotate(pe_manifold_t *m)
         ra_cross_n = pe_vec2f_cross_product_vec_vec(ra, m->normal);
         rb_cross_n = pe_vec2f_cross_product_vec_vec(rb, m->normal);
         inv_mass_sum = a->mass.inv_mass + b->mass.inv_mass + powf(ra_cross_n, 2) * a->mass.inv_inertia + powf(rb_cross_n, 2) * b->mass.inv_inertia;
-        j = - (1 + e) * contact_velocity;
+        j = - (1 + m->e) * contact_velocity;
         j /= inv_mass_sum;
         j /= (float)m->nb_contacts;
         impulse = VEC2F_MUL1(m->normal, j);
-        pe_body_apply_impulse(a, pe_vec2f_opposite(impulse), ra);
-        pe_body_apply_impulse(b, impulse, rb);
+        pe_body_apply_impulse_on_point(a, pe_vec2f_opposite(impulse), ra);
+        pe_body_apply_impulse_on_point(b, impulse, rb);
 
-        /*rv = VEC2F_SUB(VEC2F_ADD(b->velocity, pe_vec2f_cross_product_scalar_vec(b->angular_velocity, rb)), \
-        VEC2F_SUB(a->velocity, pe_vec2f_cross_product_scalar_vec(a->angular_velocity, ra)));*/
+        rv = VEC2F_SUB(VEC2F_ADD(b->velocity, pe_vec2f_cross_product_scalar_vec(b->angular_velocity, rb)), \
+        VEC2F_SUB(a->velocity, pe_vec2f_cross_product_scalar_vec(a->angular_velocity, ra)));
         t = VEC2F_SUB(rv, VEC2F_MUL1(m->normal, pe_vec2f_dot_product(rv, m->normal)));
         pe_vec2f_normalize(&t);
         jt = -pe_vec2f_dot_product(rv, t);
@@ -97,12 +96,12 @@ void pe_resolve_collision_rotate(pe_manifold_t *m)
         jt /= (float)m->nb_contacts;
         if(fabsf(jt) <= 0.0001f)
             return;
-        if(fabsf(jt) < j * (m->af->static_friction + m->bf->static_friction) * 0.7)
+        if(fabsf(jt) < j * m->sf)
             tangent_impulse = VEC2F_MUL1(t, jt);
         else
-            tangent_impulse = VEC2F_MUL1(t, -j * (m->af->dynamic_friction + m->bf->dynamic_friction) * 0.7);
+            tangent_impulse = VEC2F_MUL1(t, -j * m->df);
 
-        pe_body_apply_impulse(a, pe_vec2f_opposite(tangent_impulse), ra );
-        pe_body_apply_impulse(b, tangent_impulse, rb );
+        pe_body_apply_impulse_on_point(a, pe_vec2f_opposite(tangent_impulse), ra );
+        pe_body_apply_impulse_on_point(b, tangent_impulse, rb );
     }
 }

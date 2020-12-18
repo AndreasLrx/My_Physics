@@ -12,7 +12,7 @@ void pe_shape_init_circle(pe_shape_t *shape, float radius, pe_vec2f_t pos)
     shape->pos = pos;
     shape->shape_type = CIRCLE;
     shape->shape.circle.radius = radius;
-    pe_shape_calc_area(shape);
+    pe_shape_compute_mass_datas(shape, 1);
 }
 
 static pe_vec2f_t *compute_face_normals(pe_vec2f_t *vertices, int nb_vertices)
@@ -37,7 +37,7 @@ pe_vec2f_t *vertices, int nb_vertices)
     shape->shape.polygon.count = nb_vertices;
     shape->shape.polygon.vertices = vertices;
     shape->shape.polygon.normals = compute_face_normals(vertices, nb_vertices);
-    pe_shape_calc_area(shape);
+    pe_shape_compute_mass_datas(shape, 1);
 }
 
 void pe_shape_init_rect(pe_shape_t *shape, pe_vec2f_t pos, pe_vec2f_t size)
@@ -60,7 +60,7 @@ void pe_shape_init_rect(pe_shape_t *shape, pe_vec2f_t pos, pe_vec2f_t size)
     shape->shape.polygon.normals[1] = VEC2F(1, 0);
     shape->shape.polygon.normals[2] = VEC2F(0, 1);
     shape->shape.polygon.normals[3] = VEC2F(-1, 0);
-    pe_shape_calc_area(shape);
+    pe_shape_compute_mass_datas(shape, 1);
 }
 
 void pe_shape_init_default(pe_shape_t *shape)

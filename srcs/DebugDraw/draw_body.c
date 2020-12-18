@@ -12,7 +12,7 @@ void sf_body_draw(sf_body_t *body, sfRenderWindow *window)
     size_t nb_circle = my_vector_get_size((size_t *)body->circles);
     size_t nb_polys = my_vector_get_size((size_t *)body->polys);
 
-    sfRenderWindow_drawRectangleShape(window, body->aabb, NULL);
+    //sfRenderWindow_drawRectangleShape(window, body->aabb, NULL);
     for (size_t i = 0; i < nb_circle; i++) {
         sfRenderWindow_drawCircleShape(window, body->circles[i], NULL);
     }

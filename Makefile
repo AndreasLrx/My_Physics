@@ -14,8 +14,10 @@ SRCS_BASE := 	main.c \
 				pe_body_update.c \
 				pe_body_compute_aabb.c \
 				pe_body_compute_mass.c \
-				pe_body_force.c \
-				pe_body_set_angle.c \
+				pe_body_forces.c \
+				pe_body_impulse.c \
+				pe_body_rotate.c \
+				pe_body_move.c \
 				\
 				\
 				pe_collide_aabb_aabb.c \
@@ -56,7 +58,6 @@ SRCS_BASE := 	main.c \
 				\
 				\
 				pe_collision_table.c \
-				pe_shape_area_table.c \
 				\
 				\
 				pe_mass_data.c \
@@ -74,10 +75,8 @@ SRCS_BASE := 	main.c \
 			 	pe_aabb_is_equal.c \
 				\
 				pe_init_specific_shapes.c \
-				pe_shape_update_area.c \
 				pe_shape_destroy.c \
-				pe_shape_compute_mass_center.c \
-				pe_shape_compute_inertia.c \
+				pe_shape_compute_mass_datas.c \
 				\
 				\
 				pe_mat22_init.c \

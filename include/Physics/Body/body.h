@@ -46,12 +46,10 @@ typedef struct pe_body_t {
     float angular_velocity;
     float angular_damping;
     pe_mass_data_t mass;
-    float inv_mass;
     size_t datas;
     char fixed_rotation;
     char enabled;
     struct pe_fixture_t **fixtures;
-    struct pe_move_t **moves;
     int id;
 } pe_body_t;
 
@@ -61,17 +59,24 @@ void pe_body_add_fixture(pe_body_t *body, struct pe_fixture_t *fixture);
 void pe_body_destroy(pe_body_t *body);
 
 void pe_body_compute_aabb(pe_body_t *body);
-void pe_body_compute_mass(pe_body_t *body, float add_mass, char compute_all);
+void pe_body_compute_mass(pe_body_t *body, float add_mass, \
+float add_inertia, char compute_all);
 pe_vec2f_t pe_body_com(pe_body_t *body, int to_world);
 void pe_body_update(pe_body_t *body, float dt);
-void pe_body_move(pe_body_t *body, pe_vec2f_t move);
 
-void pe_body_apply_impulse(pe_body_t *body, pe_vec2f_t impulse, \
-pe_vec2f_t point);
-void pe_body_clear_force(pe_body_t *body);
-void pe_body_apply_force(pe_body_t *body, pe_vec2f_t force);
+void pe_body_set_pos(pe_body_t *body, pe_vec2f_t pos);
+void pe_body_move(pe_body_t *body, pe_vec2f_t move);
 
 void pe_body_set_angle(pe_body_t *body, float rad_angle);
 void pe_body_rotate(pe_body_t *body, float rad_angle);
+
+void pe_body_integrate_forces(pe_body_t *body, float dt);
+void pe_body_clear_forces(pe_body_t *body, int torque, int force, int all);
+void pe_body_add_force(pe_body_t *body, pe_vec2f_t force);
+void pe_body_add_torque(pe_body_t *body, float torque);
+
+void pe_body_apply_impulse(pe_body_t *body, pe_vec2f_t impulse);
+void pe_body_apply_impulse_on_point(pe_body_t *body, \
+pe_vec2f_t impulse, pe_vec2f_t point);
 
 #endif /* !PHYSICS_BODY_H */

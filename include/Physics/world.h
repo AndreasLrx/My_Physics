@@ -13,6 +13,7 @@
 #include "../my_containers/my_containers.h"
 
 struct pe_body_t;
+struct pe_manifold_t;
 
 typedef struct pe_world_t {
     pe_vec2f_t gravity;
@@ -26,6 +27,7 @@ void pe_world_destroy(pe_world_t *world);
 
 int pe_world_add_body(pe_world_t *world, pe_body_t *body);
 void pe_world_update(pe_world_t *world, float dt);
-void pe_world_handle_collisions_for_body(pe_world_t *world, pe_body_t *body);
+void pe_world_handle_collisions_for_body(pe_world_t *world, pe_body_t *body, \
+struct pe_manifold_t **contact_vec);
 
 #endif /* !PHYSICS_WORLD_H */

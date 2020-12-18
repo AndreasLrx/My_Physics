@@ -18,6 +18,6 @@ pe_fixture_t *pe_fixture_init(void)
     fixture->restitution = 0.5;
     fixture->density = 1;
     pe_filter_init(&fixture->collision_filter);
-    pe_fixture_update_mass(fixture);
+    pe_fixture_update_mass_datas(fixture);
     return fixture;
 }

@@ -7,11 +7,9 @@
 
 #include "Physics/physics.h"
 
-float pe_fixture_update_mass(pe_fixture_t *fixture)
+float pe_fixture_update_mass_datas(pe_fixture_t *fixture)
 {
-    pe_shape_calc_area(&fixture->shape);
-    pe_shape_compute_mass_center(&fixture->shape);
-    fixture->mass = fixture->density * fixture->shape.area;
-    pe_shape_compute_inertia(&fixture->shape, fixture->mass);
+    fixture->mass = pe_shape_compute_mass_datas(\
+    &fixture->shape, fixture->density);
     return fixture->mass;
 }

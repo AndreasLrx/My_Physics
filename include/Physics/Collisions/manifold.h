@@ -12,6 +12,9 @@
 
 typedef struct pe_manifold_t {
     int nb_contacts;
+    float e;
+    float sf;
+    float df;
     pe_vec2f_t contacts[2];
     struct pe_fixture_t *af;
     struct pe_fixture_t *bf;
@@ -19,6 +22,7 @@ typedef struct pe_manifold_t {
     float penetration;
 } pe_manifold_t;
 
+void pe_manifold_init(pe_manifold_t *m, float dt, pe_vec2f_t gravity);
 void pe_manifold_swap_bodies(pe_manifold_t *m);
 
 char pe_collide_circle_circle(pe_shape_t *c1, pe_shape_t *c2);

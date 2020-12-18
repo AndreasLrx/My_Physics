@@ -31,23 +31,20 @@ int moves_init_capacity)
     pe_body_init_zeros(body);
     body->body_type = body_type;
     pe_mass_data_init(&body->mass, 0, 0, body_type);
-    body->inv_mass = (body_type == DYNAMIC);
     body->enabled = 1;
     pe_aabb_init(&body->aabb, VEC2F(0, 0), VEC2F(0, 0), 1);
     body->fixtures = (pe_fixture_t **)my_vector_init(\
     sizeof(pe_fixture_t *), fixture_init_capacity);
-    body->moves = (pe_move_t **)my_vector_init(\
-    sizeof(pe_move_t *), moves_init_capacity);
     return body;
 }
 
 void pe_body_add_fixture(pe_body_t *body, pe_fixture_t *fixture)
 {
-    pe_fixture_update_mass(fixture);
+    pe_fixture_update_mass_datas(fixture);
     my_vector_push((size_t **)&body->fixtures, (size_t)fixture);
     fixture->body = body;
     fixture->shape.body_pos = &body->pos;
-    pe_body_compute_mass(body, fixture->mass, \
+    pe_body_compute_mass(body, fixture->mass, fixture->shape.inertia, \
     my_vector_get_size((size_t *)body->fixtures) == 1);
     pe_aabb_union_shape(&body->aabb, &body->aabb, &fixture->shape, VEC2F(0, 0));
 }
