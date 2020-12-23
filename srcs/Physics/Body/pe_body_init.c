@@ -19,6 +19,9 @@ static void pe_body_init_zeros(pe_body_t *body)
     body->datas = 0;
     body->fixed_rotation = 0;
     body->torque = 0;
+    body->is_awake = 1;
+    body->can_sleep = 1;
+    body->motion = 1.1 * PE_SLEEP_EPSILON;
 }
 
 pe_body_t *pe_body_init(char body_type, int fixture_init_capacity, \
@@ -44,7 +47,6 @@ void pe_body_add_fixture(pe_body_t *body, pe_fixture_t *fixture)
     my_vector_push((size_t **)&body->fixtures, (size_t)fixture);
     fixture->body = body;
     fixture->shape.body_pos = &body->pos;
-    pe_body_compute_mass(body, fixture->mass, fixture->shape.inertia, \
-    my_vector_get_size((size_t *)body->fixtures) == 1);
+    pe_body_compute_mass_datas(body);
     pe_aabb_union_shape(&body->aabb, &body->aabb, &fixture->shape, VEC2F(0, 0));
 }

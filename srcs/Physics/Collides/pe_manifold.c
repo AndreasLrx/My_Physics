@@ -15,6 +15,18 @@ void pe_manifold_swap_bodies(pe_manifold_t *m)
     m->bf = tempo;
 }
 
+static void awake_bodies(pe_body_t *a, pe_body_t *b)
+{
+    if (((!a->is_awake || !b->is_awake) && \
+        (a->body_type == STATIC || b->body_type == STATIC)) || \
+        (!a->is_awake && !b->is_awake))
+        return;
+    if (!a->is_awake)
+        pe_body_set_awake(a, 1);
+    if (!b->is_awake)
+        pe_body_set_awake(b, 1);
+}
+
 void pe_manifold_init(pe_manifold_t *m, float dt, pe_vec2f_t gravity)
 {
     pe_body_t *a = m->af->body;
@@ -23,6 +35,7 @@ void pe_manifold_init(pe_manifold_t *m, float dt, pe_vec2f_t gravity)
     pe_vec2f_t rb;
     pe_vec2f_t rv;
 
+    awake_bodies(a, b);
     m->e = MIN(m->af->restitution, m->bf->restitution);
     m->sf = sqrtf(m->af->static_friction * m->bf->static_friction);
     m->df = sqrtf(m->af->dynamic_friction * m->bf->dynamic_friction);

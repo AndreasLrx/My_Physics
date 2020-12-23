@@ -10,7 +10,7 @@
 int pe_world_add_body(pe_world_t *world, pe_body_t *body)
 {
     pe_body_compute_aabb(body);
-    pe_body_compute_mass(body, 0, 0, 1);
+    pe_body_compute_mass_datas(body);
     pe_bin_tree_insert_body(world->tree, body);
     my_vector_push((size_t **)&world->bodies, (size_t)body);
     return 1;

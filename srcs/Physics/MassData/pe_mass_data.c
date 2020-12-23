@@ -32,6 +32,5 @@ void pe_mass_data_update(pe_mass_data_t *mass, char static_body)
 {
     mass->inv_mass = \
     (static_body || mass->mass == 0) ? 0 : 1 / mass->mass;
-    mass->inv_inertia = \
-    (static_body || mass->inertia == 0) ? 0 : 1 / mass->inertia;
+    mass->inv_inertia = (mass->inertia == 0) ? 0 : 1 / mass->inertia;
 }

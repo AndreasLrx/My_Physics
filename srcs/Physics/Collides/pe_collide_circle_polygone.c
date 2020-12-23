@@ -82,6 +82,7 @@ pe_vec2f_t face_vertices[2], pe_vec2f_t center)
         m->normal = pe_vec2f_opposite(normal);
         m->contacts[0] = VEC2F_ADD(VEC2F_MUL1(m->normal, \
         m->af->shape.shape.circle.radius), SHAPE_POS(m->af));
+        m->nb_contacts = 1;
     }
     return 1;
 }

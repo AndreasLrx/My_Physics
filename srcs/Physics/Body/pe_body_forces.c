@@ -33,6 +33,5 @@ void pe_body_integrate_forces(pe_body_t *body, float dt)
     VEC2F_MUL1(body->force, 0.5 * dt * body->mass.inv_mass)), \
     CLAMP(1 - (dt * body->linear_damping * 0.5f), 0, 1));
     body->angular_velocity += 0.5f * dt * body->torque * body->mass.inv_inertia;
-    body->angular_velocity *= \
-    CLAMP(1 - (dt * body->angular_damping * 0.5f), 0, 1);
+    body->angular_velocity *= powf(0.1, dt);
 }

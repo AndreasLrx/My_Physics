@@ -30,6 +30,10 @@ char pe_collide_aabbs(pe_aabb_t *a, pe_aabb_t *b);
 
 char pe_manifold_fill_circle_circle(pe_manifold_t *m);
 
+float find_axis_least_penetration(int *face_id, \
+pe_fixture_t *a, pe_fixture_t *b);
+void find_incident_angle(pe_vec2f_t *face_vertices, \
+pe_fixture_t *ref, pe_fixture_t *inc, int ref_id);
 char pe_manifold_fill_polygon_polygon(pe_manifold_t *m);
 char pe_manifold_fill_circle_polygon(pe_manifold_t *m);
 char pe_manifold_fill_polygone_circle(pe_manifold_t *m);

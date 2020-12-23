@@ -92,7 +92,7 @@ int main(int argc, char **argv)
     my_vector_push((size_t **)&bodies, (size_t)create_ground(world, 1));
     my_vector_push((size_t **)&bodies, (size_t)create_ground(world, -1));
     for (int i = 0; i < nb_bodies - 2; i++)
-        my_vector_push((size_t **)&bodies, (size_t)create_box(world, VEC2F(20, 0), 0));
+        my_vector_push((size_t **)&bodies, (size_t)create_box(world, VEC2F(20, 0), 1));
     while (sfRenderWindow_isOpen(window)) {
         new_time = sfTime_asMilliseconds(sfClock_getElapsedTime(clock));
         frame_time = new_time - current_time;

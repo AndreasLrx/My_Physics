@@ -20,5 +20,6 @@ extern const double PE_PI;
 extern const float PE_POS_CORRECT_RATIO;
 extern const float PE_CORRECTION_SLOP;
 extern const float PE_EPSILON;
+extern const float PE_SLEEP_EPSILON;
 
 #endif /* !PHYSICS_CONSTANTS_H */

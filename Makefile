@@ -22,6 +22,8 @@ SRCS_BASE := 	main.c \
 				\
 				pe_collide_aabb_aabb.c \
 				pe_collide_circle_circle.c \
+				pe_collide_polygon_polygon_sat.c \
+				pe_collide_polygon_polygon_utils.c \
 				pe_collide_polygon_polygon.c \
 				pe_collide_get_collide_aabb_id.c \
 				pe_collide_polygone_circle.c \

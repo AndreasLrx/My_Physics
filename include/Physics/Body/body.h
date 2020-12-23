@@ -49,6 +49,9 @@ typedef struct pe_body_t {
     size_t datas;
     char fixed_rotation;
     char enabled;
+    char is_awake;
+    char can_sleep;
+    float motion;
     struct pe_fixture_t **fixtures;
     int id;
 } pe_body_t;
@@ -59,8 +62,7 @@ void pe_body_add_fixture(pe_body_t *body, struct pe_fixture_t *fixture);
 void pe_body_destroy(pe_body_t *body);
 
 void pe_body_compute_aabb(pe_body_t *body);
-void pe_body_compute_mass(pe_body_t *body, float add_mass, \
-float add_inertia, char compute_all);
+void pe_body_compute_mass_datas(pe_body_t *body);
 pe_vec2f_t pe_body_com(pe_body_t *body, int to_world);
 void pe_body_update(pe_body_t *body, float dt);
 
@@ -78,5 +80,8 @@ void pe_body_add_torque(pe_body_t *body, float torque);
 void pe_body_apply_impulse(pe_body_t *body, pe_vec2f_t impulse);
 void pe_body_apply_impulse_on_point(pe_body_t *body, \
 pe_vec2f_t impulse, pe_vec2f_t point);
+
+void pe_body_try_sleep(pe_body_t *body, float dt);
+void pe_body_set_awake(pe_body_t *body, char awake);
 
 #endif /* !PHYSICS_BODY_H */
