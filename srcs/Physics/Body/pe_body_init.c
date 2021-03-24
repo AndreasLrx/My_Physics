@@ -6,19 +6,12 @@
 */
 
 #include "Physics/physics.h"
+#include "My/my_memory.h"
 
 static void pe_body_init_zeros(pe_body_t *body)
 {
-    body->pos = VEC2F(0, 0);
-    body->velocity = VEC2F(0, 0);
-    body->force = VEC2F(0, 0);
     body->linear_damping = 1;
-    body->angle = 0;
-    body->angular_velocity = 0;
     body->angular_damping = 1;
-    body->datas = 0;
-    body->fixed_rotation = 0;
-    body->torque = 0;
     body->is_awake = 1;
     body->can_sleep = 1;
     body->motion = 1.1 * PE_SLEEP_EPSILON;
@@ -27,7 +20,7 @@ static void pe_body_init_zeros(pe_body_t *body)
 pe_body_t *pe_body_init(char body_type, int fixture_init_capacity, \
 int moves_init_capacity)
 {
-    pe_body_t *body = malloc(sizeof(pe_body_t));
+    pe_body_t *body = my_calloc(sizeof(pe_body_t), 0);
 
     if (body == NULL)
         return NULL;

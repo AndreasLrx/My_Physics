@@ -133,5 +133,7 @@ int main(int argc, char **argv)
         sf_body_draw_vec(bodies, window);
         sfRenderWindow_display(window);
     }
+    sfClock_destroy(clock);
     pe_world_destroy(world);
+    my_vector_free((size_t **)&bodies);
 }

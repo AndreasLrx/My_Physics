@@ -77,7 +77,7 @@ SRCS_BASE := 	main.c \
 			 	pe_aabb_is_equal.c \
 				\
 				pe_init_specific_shapes.c \
-				pe_shape_destroy.c \
+				pe_shape_reset.c \
 				pe_shape_compute_mass_datas.c \
 				\
 				\
@@ -107,7 +107,7 @@ SRCS_BASE := 	main.c \
 
 OBJS := $(addprefix $(OBJ_PATH)/, $(SRCS_BASE:.c=.o))
 CC := gcc
-CFLAGS := -Wall -Werror -pedantic
+CFLAGS := -Wall -Werror -pedantic -ggdb
 CFLAGS_LIB :=  -lcsfml-graphics  -lcsfml-system -lcsfml-window -lcsfml-audio -L./lib/ -lcontainer -lm -lmy
 CFLAGS_INCLUDE := -I./include/
 MAKE_LIB := make -C lib/my/

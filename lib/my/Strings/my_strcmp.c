@@ -18,7 +18,7 @@ int my_strncmp(char const *s1, char const *s2, int n)
         s2++;
         i++;
     }
-    if (*s1 != *s2){
+    if (i < n && *s1 != *s2){
         return *s1 - *s2;
     } else {
         return 0;

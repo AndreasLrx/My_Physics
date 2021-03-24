@@ -39,5 +39,6 @@ void pe_bin_tree_destroy(pe_bin_tree_t *tree)
     if (tree->nb_nodes_set > 0)
         destroy_node_rec(tree, tree->root_id);
     free(tree->nodes);
+    free(tree->id_lefts);
     free(tree);
 }

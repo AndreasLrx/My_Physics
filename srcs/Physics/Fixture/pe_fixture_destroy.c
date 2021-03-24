@@ -10,6 +10,6 @@
 
 void pe_fixture_destroy(pe_fixture_t *fixture)
 {
-    pe_shape_destroy(&fixture->shape);
+    pe_shape_reset(&fixture->shape);
     free(fixture);
 }

@@ -9,17 +9,17 @@
 
 size_t my_strlen(char const *str);
 
-void my_putstr_adv(int canal, char const *str)
+void my_putstr_file(int file, char const *str)
 {
-    write(canal, str, my_strlen(str));
+    write(file, str, my_strlen(str));
 }
 
 void my_putstr_err(char const *str)
 {
-    my_putstr_adv(2, str);
+    my_putstr_file(STDERR_FILENO, str);
 }
 
 void my_putstr(char const *str)
 {
-    my_putstr_adv(1, str);
+    my_putstr_file(STDOUT_FILENO, str);
 }

@@ -73,5 +73,6 @@ int pe_bin_tree_find_best_sibling(pe_bin_tree_t *tree, pe_tree_node_t *new_node)
         }
         my_vector_erase((size_t *)queue, 0, 0);
     }
+    my_vector_free((size_t **)&queue);
     return best;
 }

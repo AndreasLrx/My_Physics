@@ -12,7 +12,8 @@ size_t my_number_len(int n);
 
 char *my_itostr(int nb)
 {
-    int back_nb = nb;
+    int neg = (nb < 0);
+    int back_nb = (nb >= 0) ? nb : -nb;
     int size_str = my_number_len(nb);
     char *str = malloc(sizeof(char) * (size_str + 1));
 
@@ -20,6 +21,8 @@ char *my_itostr(int nb)
         str[size_str - i - 1] = back_nb % 10 + '0';
         back_nb /= 10;
     }
+    if (neg)
+        str[0] = '-';
     str[size_str] = 0;
     return str;
 }

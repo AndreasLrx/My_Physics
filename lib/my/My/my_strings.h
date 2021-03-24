@@ -12,6 +12,8 @@
 
 size_t my_strlen(char const *str);
 size_t my_wstrlen(wchar_t const *str);
+size_t my_strlen_to(char const *str, char end);
+size_t my_wstrlen_to(wchar_t const *str, wchar_t end);
 
 int my_strcmp(char const *s1, char const *s2);
 int my_strncmp(char const *s1, char const *s2, int n);
@@ -39,5 +41,16 @@ wchar_t *my_wstrncat(wchar_t *dest, wchar_t const *src, size_t n);
 wchar_t *my_wstrcat(wchar_t *dest, wchar_t const *src);
 
 wchar_t *my_wstrdup_except(wchar_t const *src, wchar_t except);
+
+int my_get_char_in(char const *str, char c);
+
+char *my_revstr(char *str);
+
+char **my_str_to_tab(char *str, char sep);
+char *my_tab_to_str(char **tab, char sep);
+
+char *my_strchr(char const *str, char c);
+wchar_t *my_wstrchr(wchar_t const *str, wchar_t c);
+char *my_wstr_tostr(wchar_t *wstr);
 
 #endif /* !MY_LIB_STRINGS_H */

@@ -41,7 +41,7 @@ typedef struct pe_shape_t {
 
 void pe_shape_init_default(pe_shape_t *shape);
 float pe_shape_compute_mass_datas(pe_shape_t *shape, float density);
-void pe_shape_destroy(pe_shape_t *shape);
+void pe_shape_reset(pe_shape_t *shape);
 
 
 #endif /* !PHYSICS_SHAPE_H */

@@ -35,4 +35,5 @@ int parent_box_id, pe_body_t *body)
             (size_t)tree->nodes[index]->child2_id);
         }
     }
+    my_vector_free((size_t **)&stack);
 }

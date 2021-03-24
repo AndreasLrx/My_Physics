@@ -9,6 +9,7 @@
 
 void pe_shape_init_circle(pe_shape_t *shape, float radius, pe_vec2f_t pos)
 {
+    pe_shape_reset(shape);
     shape->pos = pos;
     shape->shape_type = CIRCLE;
     shape->shape.circle.radius = radius;
@@ -32,6 +33,7 @@ static pe_vec2f_t *compute_face_normals(pe_vec2f_t *vertices, int nb_vertices)
 void pe_shape_init_polygon(pe_shape_t *shape, pe_vec2f_t pos, \
 pe_vec2f_t *vertices, int nb_vertices)
 {
+    pe_shape_reset(shape);
     shape->pos = pos;
     shape->shape_type = POLYGON;
     shape->shape.polygon.count = nb_vertices;
@@ -44,6 +46,7 @@ void pe_shape_init_rect(pe_shape_t *shape, pe_vec2f_t pos, pe_vec2f_t size)
 {
     pe_vec2f_t mid_size = VEC2F_MUL1(size, 0.5);
 
+    pe_shape_reset(shape);
     shape->pos = pos;
     shape->shape_type = POLYGON;
     shape->shape.polygon.count = 4;

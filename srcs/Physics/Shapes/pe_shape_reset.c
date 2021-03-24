@@ -7,8 +7,10 @@
 
 #include "Physics/physics.h"
 
-void pe_shape_destroy(pe_shape_t *shape)
+void pe_shape_reset(pe_shape_t *shape)
 {
-    if (shape->shape_type == POLYGON)
+    if (shape->shape_type == POLYGON) {
+        free(shape->shape.polygon.normals);
         free(shape->shape.polygon.vertices);
+    }
 }
