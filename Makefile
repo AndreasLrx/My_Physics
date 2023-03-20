@@ -4,11 +4,6 @@ OBJ_PATH := bin
 SRCS_BASE := 	main.c \
 				\
 				\
-				draw_body.c \
-				init_body.c \
-				update_body.c \
-				\
-				\
 				pe_body_init.c \
 				pe_body_destroy.c \
 				pe_body_update.c \
@@ -108,7 +103,7 @@ SRCS_BASE := 	main.c \
 OBJS := $(addprefix $(OBJ_PATH)/, $(SRCS_BASE:.c=.o))
 CC := gcc
 CFLAGS := -Wall -Werror -pedantic -ggdb
-CFLAGS_LIB :=  -lcsfml-graphics  -lcsfml-system -lcsfml-window -lcsfml-audio -L./lib/ -lcontainer -lm -lmy
+CFLAGS_LIB :=  -L./lib/ -lcontainer -lm -lmy
 CFLAGS_INCLUDE := -I./include/
 MAKE_LIB := make -C lib/my/
 MAKE_CONTAINERS := make -C lib/my_container/
